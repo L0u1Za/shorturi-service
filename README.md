@@ -68,7 +68,7 @@ POST /links/shorten
 
 #### 🔗 Создать ссылку после авторизации
 ```
-POST /links/shorten Authentification: Bearer <Token>
+POST /links/shorten Authorization: Bearer <Token>
 {
   "original_url": "https://example.com"
 }
@@ -80,12 +80,12 @@ GET /links/{short_code}/stats
 ```
 #### 🔗 Удалить свою ссылку (только для владельца)
 ```
-DELETE /links/{short_code} Authentification: Bearer <Token>
+DELETE /links/{short_code} Authorization: Bearer <Token>
 ```
 
 #### 🔗 Изменить свою ссылку (только для владельца)
 ```
-PUT /links/{short_code} Authentification: Bearer <Token>
+PUT /links/{short_code} Authorization: Bearer <Token>
 {
   "original_url": "https://example2.com"
 }
