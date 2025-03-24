@@ -1,0 +1,9 @@
+fastapi
+pydantic
+psycopg2
+redis
+python-dotenv
+uvicorn
+asyncio
+passlib
+PyJWT
