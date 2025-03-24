@@ -12,23 +12,18 @@ router = APIRouter()
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token", auto_error=False)
 
-@router.post("/register", response_model=UserCreate)
+@router.post("/auth/register", response_model=UserCreate)
 def register(user: UserCreate):
     create_user(user)
     return user
 
-@router.post("/token", response_model=Token)
+@router.post("/auth/token", response_model=Token)
 def login_for_access_token(form_data: UserLogin):
     user = authenticate_user(form_data.username, form_data.password)
     if not user:
         raise HTTPException(status_code=401, detail="Incorrect username or password")
     access_token = create_access_token(data={"id": user["id"]})
     return {"access_token": access_token, "token_type": "bearer"}
-
-@router.get("/users/me")
-def read_users_me(token: str = Depends(oauth2_scheme)):
-    user_data = verify_token(token)
-    return user_data
 
 @router.post("/links/shorten")
 def shorten_link(request: ShortenRequest, token: Optional[str] = Depends(oauth2_scheme)):
