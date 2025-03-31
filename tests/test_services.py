@@ -17,9 +17,8 @@ from app.services.link_shortener import (
 from app.models.schemas import ShortenRequest, UpdateLinkRequest, UserCreate
 
 import psycopg2
-from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 from app.utils.cache import redis_client
-from app.models.database import conn, cursor
+from app.models.database import conn, cursor, create_tables
 
 @pytest.fixture(scope="function", autouse=True)
 def clear_database():
@@ -51,6 +50,21 @@ def clear_redis():
     redis_client.flushdb()
     yield
     redis_client.flushdb()
+
+def test_create_tables():
+    """Test the create_tables function."""
+    # Call the create_tables function
+    create_tables()
+
+    # Verify that tables are created
+    cursor.execute("SELECT tablename FROM pg_tables WHERE schemaname = 'public';")
+    tables_after = cursor.fetchall()
+    created_tables = [table[0] for table in tables_after]
+
+    assert len(created_tables) > 0, "No tables were created"
+    assert "users" in created_tables, "Users table was not created"
+    assert "links" in created_tables, "Links table was not created"
+
 
 # Unit Tests for auth.py
 def test_create_user():
