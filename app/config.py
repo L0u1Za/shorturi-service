@@ -1,7 +1,9 @@
 from dotenv import load_dotenv
 import os
 
-load_dotenv()
+ENV = os.getenv("ENV", ".env")
+print(ENV)
+load_dotenv(ENV)
 
 DB_NAME = os.getenv("DB_NAME")
 DB_USER=os.getenv("DB_USER")

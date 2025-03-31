@@ -7,3 +7,6 @@ uvicorn
 asyncio
 passlib
 PyJWT
+pytest
+Locust
+coverage
