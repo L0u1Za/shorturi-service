@@ -171,4 +171,4 @@ pytest tests/routes.py
 locust -f locustfile.py --host http://localhost:8000
 ```
 
-![Report](image.png)
+![Report](Locust_report.png)
