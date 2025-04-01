@@ -141,3 +141,34 @@ docker-compose up --build
 
 key: short_code, value: original_url
 
+
+
+# Тестирование
+
+Для запуска тестов сначала поднимите тестовые базу данных и кеш:
+
+```bash
+docker-compose up postgres redis
+```
+
+## Unit тестирование
+
+```bash
+pytest tests --disable-warnings
+coverage run -m pytest
+coverage html
+```
+
+## Функциональное тестирование
+
+```bash
+pytest tests/routes.py
+```
+
+## Нагрузочное тестирование
+
+```bash
+locust -f locustfile.py --host http://localhost:8000
+```
+
+![Report](image.png)
